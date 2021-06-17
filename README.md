@@ -92,7 +92,7 @@ Any help from the open-source community is always welcome and needed:
     - Promote the project: create an article, do a post or make a donation.
 - Are you a developer?
     - Fix a bug and send a pull request.
-    - Implement a new feature, like other training algorithms and activation functions.
+    - Implement a new feature.
     - Improve the Unit Tests.
 - Have you already helped in any way?
     - **Many thanks from me, the contributors and everybody that uses this project!**

@@ -1,3 +1,4 @@
+// @dart=2.11
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -21,8 +22,8 @@ class Argon2Parameters {
   final int type;
 
   final Uint8List _salt;
-  final Uint8List? _secret;
-  final Uint8List? _additional;
+  final Uint8List _secret;
+  final Uint8List _additional;
 
   final int iterations;
   final int memory;
@@ -35,11 +36,11 @@ class Argon2Parameters {
   Argon2Parameters(
     this.type,
     this._salt, {
-    Uint8List? secret,
-    Uint8List? additional,
+    Uint8List secret,
+    Uint8List additional,
     this.iterations = DEFAULT_ITERATIONS,
-    int? memoryPowerOf2,
-    int? memory,
+    int memoryPowerOf2,
+    int memory,
     this.lanes = DEFAULT_LANES,
     this.version = DEFAULT_VERSION,
     this.converter = CharToByteConverter.UTF8,
@@ -51,9 +52,9 @@ class Argon2Parameters {
 
   Uint8List get salt => _salt;
 
-  Uint8List? get secret => _secret;
+  Uint8List get secret => _secret;
 
-  Uint8List? get additional => _additional;
+  Uint8List get additional => _additional;
 
   void clear() {
     _salt.clear();

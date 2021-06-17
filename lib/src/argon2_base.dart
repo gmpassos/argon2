@@ -1,3 +1,4 @@
+// @dart=2.11
 import 'dart:typed_data';
 
 import 'package:argon2/src/argon2_blake2b.dart';
@@ -62,10 +63,10 @@ class Argon2BytesGenerator {
 
   static final Uint8List _ZERO_BYTES = Uint8List(4);
 
-  late Argon2Parameters _parameters;
-  late List<_Block> _memory;
-  late int _segmentLength;
-  late int _laneLength;
+  Argon2Parameters _parameters;
+  List<_Block> _memory;
+  int _segmentLength;
+  int _laneLength;
 
   Argon2BytesGenerator();
 
@@ -94,12 +95,12 @@ class Argon2BytesGenerator {
   }
 
   int generateBytesFromString(String password, Uint8List out,
-          [int outOff = 0, int? outLen]) =>
+          [int outOff = 0, int outLen]) =>
       generateBytes(
           _parameters.converter.convert(password), out, outOff, outLen);
 
   int generateBytes(Uint8List password, Uint8List out,
-      [int outOff = 0, int? outLen]) {
+      [int outOff = 0, int outLen]) {
     outLen ??= out.length;
 
     if (outLen < Argon2BytesGenerator.MIN_OUTLEN) {
@@ -171,8 +172,8 @@ class Argon2BytesGenerator {
   }
 
   void _fillSegment(_FillBlock filler, _Position position) {
-    _Block? addressBlock;
-    _Block? inputBlock;
+    _Block addressBlock;
+    _Block inputBlock;
 
     var dataIndependentAddressing = _isDataIndependentAddressing(position);
     var startingIndex = _getStartingIndex(position);
@@ -267,14 +268,14 @@ class Argon2BytesGenerator {
 
   /* 1.2 Computing the index of the reference block */
   /* 1.2.1 Taking pseudo-random value from the previous block */
-  int _getPseudoRandom(_FillBlock filler, int index, _Block? addressBlock,
-      _Block? inputBlock, int prevOffset, bool dataIndependentAddressing) {
+  int _getPseudoRandom(_FillBlock filler, int index, _Block addressBlock,
+      _Block inputBlock, int prevOffset, bool dataIndependentAddressing) {
     if (dataIndependentAddressing) {
       var addressIndex = index % ARGON2_ADDRESSES_IN_BLOCK;
       if (addressIndex == 0) {
-        _nextAddresses(filler, inputBlock!, addressBlock!);
+        _nextAddresses(filler, inputBlock, addressBlock);
       }
-      return addressBlock!._v[addressIndex];
+      return addressBlock._v[addressIndex];
     } else {
       return _memory[prevOffset]._v[0];
     }
@@ -421,7 +422,7 @@ class Argon2BytesGenerator {
   }
 
   static void _addByteString(Uint8List tmpBlockBytes, Digest digest,
-      [Uint8List? octets]) {
+      [Uint8List octets]) {
     if (octets == null) {
       digest.update(_ZERO_BYTES, 0, 4);
       return;
