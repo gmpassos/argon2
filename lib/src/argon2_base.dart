@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 
-import 'package:argon2/src/argon2_blake2b.dart';
 import 'package:argon2/src/argon2_utils.dart';
 import 'package:pointycastle/api.dart';
+import 'package:pointycastle/digests/blake2b.dart';
 
 import 'argon2_extension.dart';
 import 'argon2_parameters.dart';

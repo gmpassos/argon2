@@ -1,9 +1,9 @@
 import 'dart:typed_data';
 
-import 'package:argon2/src/argon2_blake2b.dart';
 import 'package:argon2/src/argon2_extension.dart';
 import 'package:argon2/src/argon2_utils.dart';
 import 'package:hex/hex.dart';
+import 'package:pointycastle/digests/blake2b.dart';
 import 'package:test/test.dart';
 
 void main() {
